@@ -1,0 +1,42 @@
+Le but du projet est de créer une application web. Le sujet est libre, même si
+des contraintes sont fixées.
+
+Il faut impérativement :
+- une base de données avec au moins deux tables,
+- une gestion d’utilisateurs (au moins connexion et déconnexion).
+
+Quelques règles à suivre :
+- un dépôt git public avec un historique crédible,
+- code et commentaires en anglais.
+
+Je ne regarde pas :
+- le HTML,
+- le CSS,
+- le JS.
+
+Je regarde :
+- la simplicité du code : pas de code mort, pas de code inutilement complexe,
+- le respect du guide de style (PEP8, vous pouvez utiliser Black),
+- l’originalité des fonctionnalités.
+
+Conseils :
+- faites quelque chose de simple et concis, environ 200 lignes de Python,
+- suivez le Quickstart, pas le tutoriel (sauf pour la base de données),
+- ne prenez que ce dont vous avez besoin,
+- faites un seul fichier Python, à côté de votre environnement virtuel,
+- faites un fichier SQL pour ajouter vos tables (et quelques données de test si vous voulez),
+- ne versionnez pas la base de données, les fichiers d’instance, l’environnement virtuel, les fichiers .pyc,
+- n’utilisez pas d’extensions.
+
+Structure :
+
+Un dossier avec :
+- un fichier .py,
+- un fichier .sql,
+- un dossier templates,
+- un dossier d’environnement virtuel (ne pas versionner),
+- un dossier d’instance où est la base de données (ne pas versionner).
+
+Envoyez par mail l’adresse de votre dépôt avant le 22 mars à 20h.
+--
+Guillaume
