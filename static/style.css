@@ -1,0 +1,38 @@
+/* Global */
+
+* {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.italic {
+    font-style: italic;
+}
+
+/* Page d'accueil */
+
+#home_formulaire {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+    padding: 30px 15px;
+    border-radius: 50px;
+    background-color: darkgrey;
+}
+
+#home_formulaire > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px
+}
+
+#home_formulaire label {
+    width: 120px;
+}
+
+#home_formulaire_submit {
+    width: 125px;
+    height: 30px;
+}

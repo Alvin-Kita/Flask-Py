@@ -1,74 +1,37 @@
-from flask import Flask
-from flask import url_for
+from flask import Flask, render_template, url_for, redirect, request
 
-from markupsafe import escape
-
-# Minimal Application
 app = Flask(__name__)
 
-# @app.route("/")
-# def hello_world():
-#     return "<p>Hello, World!toto</p>"
 
-# HTML Escaping
-@app.route("/<name>")
-def hello_name(name):
-    return f"Hello, {escape(name)}!"
-
-# Routing
-# @app.route('/')
-# def index():
-#     return 'Index Page'
-
-@app.route('/hello')
-def hello():
-    return 'Hello, World'
-
-
-# Variable Rules
-# @app.route('/user/<username>')
-# def show_user_profile(username):
-#     # show the user profile for that user
-#     return f'User {escape(username)}'
-
-@app.route('/post/<int:post_id>')
-def show_post(post_id):
-    # show the post with the given id, the id is an integer
-    return f'Post {post_id}'
-
-@app.route('/path/<path:subpath>')
-def show_subpath(subpath):
-    # show the subpath after /path/
-    return f'Subpath {escape(subpath)}'
-
-# Unique URLs / Redirection Behavior
-@app.route('/projects/')
-def projects():
-    return 'The project page'
-
-@app.route('/about')
-def about():
-    return 'The about page'
-
-# URL Building
-from flask import url_for
-
-@app.route('/')
-def index():
-    return 'index'
-
-@app.route('/login')
+@app.route("/", methods=["POST", "GET"])
 def login():
-    return 'login'
+    css_file = url_for('static', filename='style.css')
+    # if request.method == "POST":
+    #     username = request.form["username"]
+    #     password = request.form["password"]
+    #     if username == "almosk" and password == "mdp":
+    #         return redirect(url_for("dashboard"))
+    #     else:
+    #         return render_template(
+    #             "index.html",
+    #             css=css_file,
+    #             title="Page d'accueil",
+    #             badAttempt="Utilisateur ou mot de passe incorrect"
+    #         )
 
-@app.route('/user/<username>')
-def profile(username):
-    return f'{username}\'s profile'
+    return render_template(
+        "index.html",
+        css=css_file,
+        title="Page d'accueil"
+    )
 
-with app.test_request_context():
-    print(url_for('index'))
-    print(url_for('login'))
-    print(url_for('login', next='/'))
-    print(url_for('profile', username='John Doe'))
 
-# HTTP Methods
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
+
+if __name__ == "__main__":
+    # Jamais de debbug en prod
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
