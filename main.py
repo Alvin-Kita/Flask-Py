@@ -11,12 +11,13 @@ app = Flask(__name__)
 
 
 @app.route("/", methods=["POST", "GET"])
-def login():
+def index():
     css_file = url_for('static', filename='style.css')
     return render_template(
         "index.html",
         css=css_file,
         title="Page d'accueil"
+
     )
 
 
@@ -37,6 +38,7 @@ def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
+        db.row_factory = sqlite3.Row
     return db
 
 
@@ -55,6 +57,16 @@ def init_db():
         db.commit()
 
 
+def show_user():
+    with app.app_context():
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('SELECT * FROM users')
+        users = cursor.fetchall()
+        for user in users:
+            print(user['username'], 'à l\'identifiant', user['password'])
+
+
 ######################
 # Lancement de l'app #
 ######################
@@ -62,7 +74,8 @@ def init_db():
 # Lancement de l'app avec la commande → python main.py
 if __name__ == "__main__":
     with app.app_context():
-        if not Path(DATABASE).is_file():  # Si la base de données n'existe pas
-            init_db()
+        # if not Path(DATABASE).is_file():  # Si la base de données n'existe pas
+        init_db()
+        show_user()
     # Jamais de debug en prod
     app.run(host='0.0.0.0', port=5000, debug=True)
