@@ -8,8 +8,7 @@
 # Documentation des fonctions Python3 : https://docs.python.org/3.11/library/functions.html
 
 
-from flask import Flask, render_template, url_for, g
-from pathlib import Path
+from flask import Flask, render_template, url_for, g, request, redirect
 import sqlite3
 
 app = Flask(__name__)
@@ -20,20 +19,56 @@ app = Flask(__name__)
 ##############
 
 # Au lancement, envoi sur la page d'accueil
-@app.route("/", methods=["POST", "GET"])
-def index():
+@app.get('/')
+def login_get():
     css_file = url_for('static', filename='style.css')
     return render_template(
         "index.html",
         css=css_file,
-        title="Page d'accueil"
-
+        title="Page d'accueil",
     )
 
 
-@app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")
+# Action à la validation du formulaire de connexion
+# TODO : Rendre la connexion plus professionel
+@app.post('/')
+def login_post():
+    """
+    Traite les informations du formulaire de connexion
+    Return : Redirige vers le dashboard de l'utilisateur si les informations sont correctes
+             sinon affiche un message d'information incorrect
+    """
+    css_file = url_for('static', filename='style.css')
+    username = request.form['username']
+    password = request.form['password']
+    user = login_user(username, password)
+    if user:
+        return redirect(url_for('dashboard', username=username))
+    else:
+        bad_attempt = "Utilisateur ou mot de passe incorrect."
+
+    return render_template(
+        "index.html",
+        css=css_file,
+        title="Page d'accueil",
+        badAttempt=bad_attempt
+    )
+
+
+# Page d'accueil de l'utilisateur
+# TODO: A faire
+#  - Rendre la page plus attrayante,
+#  - Possibilité de changer le mot de passe
+#  - Affichage d'un message type "Vous �tes le {id}ème utilisateur crée"
+#  - Ajout de fonctionnalité qui utilise la base de donnée (Pokedex ?)
+#  - Bouton déconnexion
+@app.route("/dashboard/<username>")
+def dashboard(username):
+    return render_template(
+        "dashboard.html",
+        title="Dashboard",
+        username=username
+    )
 
 
 ###################
@@ -53,7 +88,7 @@ def get_db():
     return db
 
 
-# Ferme la connexion à la base de donnée à la fin de ger_db()
+# Ferme la connexion à la base de donnée à la fin de get_db()
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -70,15 +105,27 @@ def init_db():
         db.commit()
 
 
-# TODO: Debug à supprimer
-def show_user():
+# Authentification de l'utilisateur à partir de la base de donnée
+def login_user(username, password):
     with app.app_context():
         db = get_db()
         cursor = db.cursor()
-        cursor.execute('SELECT * FROM users')
-        users = cursor.fetchall()
-        for user in users:
-            print(user['username'], 'à l\'identifiant', user['password'])
+        cursor.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password))
+        user = cursor.fetchone()
+        return user
+
+
+# TODO: Debug à supprimer
+def db_test():
+    with app.app_context():
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('select * from users where username = ?', ["toto"])
+        user = cursor.fetchone()
+        if user is None:
+            print('No such user')
+        else:
+            print("toto", 'has the id', user['username'])
 
 
 ######################
@@ -90,6 +137,6 @@ if __name__ == "__main__":
     with app.app_context():
         # if not Path(DATABASE).is_file():  # Si la base de données n'existe pas
         init_db()
-        show_user()
+        db_test()
     # Jamais de debug en prod
     app.run(host='0.0.0.0', port=5000, debug=True)
