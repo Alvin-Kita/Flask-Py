@@ -12,6 +12,14 @@
     <link rel="stylesheet" href="{{ css }}">
 </head>
 <body>
+<header>
+    <form action="/logout" method="post">
+        <input type="submit" value="Déconnexion">
+    </form>
+    <form action="/setting/<username>" method="post">
+        <input type="submit" value="Changer de mot de passe">
+    </form>
+</header>
 Connecté au compte de {{username}}
 </body>
 </html>

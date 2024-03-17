@@ -13,23 +13,25 @@ import sqlite3
 
 app = Flask(__name__)
 
-
 ##############
 # Partie Web #
 ##############
 
+
 # Au lancement, envoi sur la page d'accueil
 @app.get('/')
 def login_get():
+    """
+    Affiche la page de connexion
+    """
     css_file = url_for('static', filename='style.css')
     return render_template(
         "index.html",
         css=css_file,
-        title="Page d'accueil",
+        title="Page d'accueil"
     )
 
 
-# Action à la validation du formulaire de connexion
 # TODO : Rendre la connexion plus professionel
 @app.post('/')
 def login_post():
@@ -55,7 +57,6 @@ def login_post():
     )
 
 
-# Page d'accueil de l'utilisateur
 # TODO: A faire
 #  - Rendre la page plus attrayante,
 #  - Possibilité de changer le mot de passe
@@ -64,11 +65,22 @@ def login_post():
 #  - Bouton déconnexion
 @app.route("/dashboard/<username>")
 def dashboard(username):
+    """
+    Retourne le dashboard de l'utilisateur (après connexion)
+    """
     return render_template(
         "dashboard.html",
         title="Dashboard",
         username=username
     )
+
+
+@app.route("/logout", methods=["POST"])
+def logout_get():
+    """
+    Déconnecte l'utilisateur et le redirige vers la page d'accueil.
+    """
+    return redirect(url_for("login_get"))
 
 
 ###################
