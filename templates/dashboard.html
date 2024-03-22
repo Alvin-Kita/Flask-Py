@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="{{ css }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        (document).ready(function() {
-            ("#add_pkmn").click(function() {
+        $(document).ready(function() {
+            $("#add_pkmn").click(function() {
                 event.preventDefault();
-                ("#add_pkmn_form").toggleClass("hide");
+                $("#add_pkmn_form").toggleClass("hide");
             });
         });
     </script>
@@ -29,13 +29,14 @@
 </header>
 <p>Bonjour {{username}} !</p>
 <form id="pokedex_form">
-    <p>C'est ton pokedex personnel</p>
+    <p>C'est ton pokedex personel</p>
     <p>{{ badAttempt }}</p>
     <input type="submit" value="Ajouter un pokemon" id="add_pkmn">
 
 </form>
 <form id="add_pkmn_form" method="post" class="hide">
     <input type="hidden" name="username" id="username" value="{{ username }}">
+    <p>Tous les champs excepté le type 2 doivent être renseignés</p>
     <div>
         <label for="pkmn_name">Nom du pokemon : </label>
         <input type="text" name="pkmn_name" id="pkmn_name" placeholder="Dracaufeu">
