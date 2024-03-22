@@ -174,10 +174,10 @@ def add_pokemon(username):
 ######################
 
 
-# Lancement de l'app avec la commande → python main.py
-if __name__ == "__main__":
-    with app.app_context():
-        # if not Path(DATABASE).is_file():  # Si la base de données n'existe pas
-        init_db()
-    # Jamais de debug en prod
-    app.run(host='0.0.0.0', port=5000, debug=True)
+# # Lancement de l'app avec la commande → python main.py
+# if __name__ == "__main__":
+#     with app.app_context():
+#         # if not Path(DATABASE).is_file():  # Si la base de données n'existe pas
+#         init_db()
+#     # Jamais de debug en prod
+#     app.run(host='0.0.0.0', port=5000, debug=True)
