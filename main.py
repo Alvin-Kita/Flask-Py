@@ -13,16 +13,16 @@ import sqlite3
 
 app = Flask(__name__)
 
-##############
-# Partie Web #
-##############
+#############
+# Web part #
+############
 
 
-# Au lancement, envoi sur la page d'accueil
+# At launch, redirect to the homepage
 @app.get('/')
 def login_get():
     """
-    Affiche la page de connexion
+    Display the login page
     """
     css_file = url_for('static', filename='style.css')
     return render_template(
@@ -32,13 +32,12 @@ def login_get():
     )
 
 
-# TODO : Rendre la connexion plus professionel
 @app.post('/')
 def login_post():
     """
-    Traite les informations du formulaire de connexion
-    Return : Redirige vers le dashboard de l'utilisateur si les informations sont correctes
-             sinon affiche un message d'information incorrect
+    Process the information from the login form."
+    Return: Redirects to the user's dashboard if the information is correct,
+    otherwise displays an incorrect information message.
     """
     css_file = url_for('static', filename='style.css')
     username = request.form['username']
@@ -65,7 +64,7 @@ def login_post():
 @app.route("/dashboard/<username>")
 def dashboard(username):
     """
-    Retourne le dashboard de l'utilisateur (après connexion)
+    Return the user's dashboard (after login).
     """
     css_file = url_for('static', filename='style.css')
     pokemons = get_pokemon(username)
@@ -81,29 +80,29 @@ def dashboard(username):
 @app.route("/logout", methods=["POST"])
 def logout_get():
     """
-    Déconnecte l'utilisateur et le redirige vers la page d'accueil.
+    Log out the user and redirect them to the homepage.
     """
     return redirect(url_for("login_get"))
 
 
-###################
-# Base de données #
-###################
+#############
+# DATABASE #
+############
 
 
 DATABASE = 'database.db'
 
 
-# Récupération de la base de donnée
+# Database retrieval
 def get_db():
-    db = getattr(g, '_database', None)  # Récupération de la base de donnée
-    if db is None:  # Si elle n'existe pas : création de la connexion
+    db = getattr(g, '_database', None)
+    if db is None:  # If it doesn't exist: create the connection.
         db = g._database = sqlite3.connect(DATABASE)
         db.row_factory = sqlite3.Row
     return db
 
 
-# Ferme la connexion à la base de donnée à la fin de get_db()
+# Close
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -111,7 +110,7 @@ def close_connection(exception):
         db.close()
 
 
-# Initialisation de la base de donnée "database.db" à partir de schema.sql
+# Initialization of the database "database.db" from schema.sql
 def init_db():
     with app.app_context():
         db = get_db()
@@ -120,7 +119,7 @@ def init_db():
         db.commit()
 
 
-# Authentification de l'utilisateur à partir de la base de donnée
+# User authentication from the database
 def login_user(username, password):
     with app.app_context():
         db = get_db()
@@ -136,7 +135,7 @@ def login_user(username, password):
 
 def get_pokemon(username):
     """
-    Affiche la liste de pokemon d'un utilisateur dans la base de donnée
+    Display the list of Pokémon for a user in the database.
     """
     with app.app_context():
         db = get_db()
@@ -149,7 +148,7 @@ def get_pokemon(username):
 @app.route("/dashboard/<username>", methods=["POST"])
 def add_pokemon(username):
     """
-    Ajoute un pokemon à l'utilisateur en fonction des informations entrée dans le formulaire
+    Add a Pokémon to the user based on the information entered in the form.
     """
     pokemon_name = request.form["pkmn_name"]
     pokemon_picture_url = request.form["pkmn_picture_url"]
@@ -169,9 +168,9 @@ def add_pokemon(username):
 
     return redirect(url_for('dashboard', username=username))
 
-######################
-# Lancement de l'app #
-######################
+###########
+# LAUNCH #
+#########
 
 
 # # Lancement de l'app avec la commande → python main.py
