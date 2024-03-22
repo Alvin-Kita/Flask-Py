@@ -10,23 +10,45 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Super site - {{ title }}</title>
     <link rel="stylesheet" href="{{ css }}">
+
 </head>
 <body>
 <h1> {{ title }} </h1>
 {% if title == "Page d'accueil" %}
-<form action="" method="post" id="home_formulaire">
-    <p class="italic">Connectez-vous à votre compte pour accéder au super site &#x2B50 !!</p>
-    <div>
-        <label for="username">Utilisateur : </label>
-        <input type="text" name="username" id="username" placeholder="Nom d'utilisateur">
-    </div>
-    <div>
-        <label for="password">Mot de passe : </label>
-        <input type="password" name="password" id="password" placeholder="*********">
-    </div>
-    <p> {{ badAttempt }} </p>
-    <input id="home_formulaire_submit" type="submit" value="Envoyer">
-</form>
+    <form action="" method="post" class="home_formulaire">
+        <p class="italic">Connectez-vous à votre compte pour accéder au super site &#x2B50 !!</p>
+        <div>
+            <label for="username">Utilisateur : </label>
+            <input type="text" name="username" id="username" placeholder="Nom d'utilisateur">
+        </div>
+        <div>
+            <label for="password">Mot de passe : </label>
+            <input type="password" name="password" id="password" placeholder="*********">
+        </div>
+        <p> {{ badAttempt }} </p>
+        <input id="inscription_button" type="submit" value="Connection">
+    </form>
+
+
+{#
+
+
+        <form class="home_formulaire" method="post">#}
+{#    <p>Invite tes amis en créant un compte</p>#}
+{#        <div>#}
+{#            <label for="user_name">Nom d'utilisateur : </label>#}
+{#            <input type="text" name="user_name" id="user_name" placeholder="Nom d'utilisateur">#}
+{#        </div>#}
+{#        <div>#}
+{#            <label for="user_password">mot de passe : </label>#}
+{#            <input type="password" name="user_password" id="user_password" placeholder="******">#}
+{#        </div>#}
+{#        <div>#}
+{#            <label for="user_password_confirm">confirmation : </label>#}
+{#            <input type="password" name="user_password_confirm" id="user_password_confirm" placeholder="******">#}
+{#        </div>#}
+{#        <input id="home_formulaire_submit" type="submit" value="Valider la création">#}
+{#    </form>#}
 {% endif %}
 </body>
 </html>

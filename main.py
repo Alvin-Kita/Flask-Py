@@ -59,9 +59,9 @@ def login_post():
 
 # TODO: A faire
 #  - Rendre la page plus attrayante,
-#  - Affichage d'un message type "Vous �tes le {id}ème utilisateur crée"
 #  - Ajout de fonctionnalité qui utilise la base de donnée (Pokedex ?)
 #  - Bouton déconnexion
+#  - Création d'utilisateur
 @app.route("/dashboard/<username>")
 def dashboard(username):
     """
@@ -128,20 +128,7 @@ def login_user(username, password):
         cursor.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password))
         user = cursor.fetchone()
         return user
-
-
-# TODO: Debug à supprimer
-def db_test():
-    with app.app_context():
-        db = get_db()
-        cursor = db.cursor()
-        cursor.execute('select * from users where username = ?', ["toto"])
-        user = cursor.fetchone()
-        if user is None:
-            print('No such user')
-        else:
-            print("toto", 'has the id', user['username'])
-
+#
 
 ############
 # Pokedex #
@@ -192,6 +179,5 @@ if __name__ == "__main__":
     with app.app_context():
         # if not Path(DATABASE).is_file():  # Si la base de données n'existe pas
         init_db()
-        db_test()
     # Jamais de debug en prod
     app.run(host='0.0.0.0', port=5000, debug=True)

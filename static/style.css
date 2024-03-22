@@ -12,8 +12,9 @@
 
 /* Page d'accueil */
 
-#home_formulaire {
+.home_formulaire {
     display: flex;
+    margin-top: 25px;
     flex-direction: column;
     align-items: center;
     width: 25%;
@@ -22,17 +23,17 @@
     background-color: darkgrey;
 }
 
-#home_formulaire > div {
+.home_formulaire > div {
     display: flex;
     align-items: center;
     margin-bottom: 10px
 }
 
-#home_formulaire label {
+.home_formulaire label {
     width: 120px;
 }
 
-#home_formulaire_submit {
+.home_formulaire_submit {
     width: 125px;
     height: 30px;
 }
@@ -48,4 +49,18 @@
 
 table {
     border-spacing: 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    background-color: red;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+header p {
+    color: azure;
+    font-style: oblique;
+    margin-left: 200px;
 }

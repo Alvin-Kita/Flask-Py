@@ -20,15 +20,23 @@ CREATE TABLE pokedex (
 
 INSERT INTO pokedex (username,pkmn_name, pkmn_picture_url, pkmn_type1)
 VALUES (
+           'toto',
+           'Pixel',
+           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe01Ygr_fYFmma5zlF1TCKpBTyy52MOlTINNOcGmwUA9CgVM0j9V8LiQ679lK-70eN8qE&usqp=CAU',
+           'Mascotte');
+
+
+INSERT INTO pokedex (username,pkmn_name, pkmn_picture_url, pkmn_type1)
+VALUES (
         'toto',
         'Pikachu',
-        'https://toppng.com/uploads/preview/anime-pokemon-png-transparent-pokemon-pikachu-115628931001szanhj4sy.png',
+        'https://www.coupcritique.fr/images/pokemons/pikachu-partner.png',
         'Electrik');
 
-INSERT INTO pokedex (username, pkmn_name, pkmn_picture_url, pkmn_type1, pkmn_type2)
+INSERT INTO pokedex (username,pkmn_name, pkmn_picture_url, pkmn_type1, pkmn_type2)
 VALUES (
-        'tata',
-        'Ectoplasma',
-        'https://w7.pngwing.com/pngs/855/531/png-transparent-gengar-funny-monster-thumbnail.png',
-        'Spectre',
-        'Poison');
+           'tata',
+           'Pixel',
+           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe01Ygr_fYFmma5zlF1TCKpBTyy52MOlTINNOcGmwUA9CgVM0j9V8LiQ679lK-70eN8qE&usqp=CAU',
+           'Mascotte',
+           'ultime');

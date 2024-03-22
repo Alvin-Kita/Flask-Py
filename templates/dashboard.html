@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="{{ css }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $("#add_pkmn").click(function() {
+        (document).ready(function() {
+            ("#add_pkmn").click(function() {
                 event.preventDefault();
-                $("#add_pkmn_form").toggleClass("hide");
+                ("#add_pkmn_form").toggleClass("hide");
             });
         });
     </script>
@@ -25,10 +25,11 @@
     <form action="/logout" method="post">
         <input type="submit" value="Déconnexion">
     </form>
+    <p>Attraper les tous !!!</p>
 </header>
 <p>Bonjour {{username}} !</p>
 <form id="pokedex_form">
-    <p>Que veux-tu faire ?</p>
+    <p>C'est ton pokedex personnel</p>
     <p>{{ badAttempt }}</p>
     <input type="submit" value="Ajouter un pokemon" id="add_pkmn">
 
