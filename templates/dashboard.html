@@ -10,16 +10,71 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Super site - {{ title }} de {{ username }}</title>
     <link rel="stylesheet" href="{{ css }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#add_pkmn").click(function() {
+                event.preventDefault();
+                $("#add_pkmn_form").toggleClass("hide");
+            });
+        });
+    </script>
 </head>
 <body>
 <header>
     <form action="/logout" method="post">
         <input type="submit" value="Déconnexion">
     </form>
-    <form action="/setting/<username>" method="post">
-        <input type="submit" value="Changer de mot de passe">
-    </form>
 </header>
-Connecté au compte de {{username}}
+<p>Bonjour {{username}} !</p>
+<form id="pokedex_form">
+    <p>Que veux-tu faire ?</p>
+    <input type="submit" value="Ajouter un pokemon" id="add_pkmn">
+</form>
+<form id="add_pkmn_form" class="hide">
+    <div>
+        <label for="pkmn_name">Nom du pokemon : </label>
+        <input type="text" name="pkmn_name" id="pkmn_name" placeholder="Dracaufeu">
+    </div>
+    <div>
+        <label for="pkmn_picture_url">url de l'image : </label>
+        <input type="url" name="pkmn_picture_url" id="pkmn_picture_url" placeholder="https://image.trop.bien">
+    </div>
+    <div>
+        <label for="pkmn_type1">type 1 du pokemon : </label>
+        <input type="text" name="pkmn_type1" id="pkmn_type1" placeholder="feu">
+    </div>
+    <div>
+        <label for="pkmn_type2">type 2 du pokemon : </label>
+        <input type="text" name="pkmn_type2" id="pkmn_type2" placeholder="vol">
+    </div>
+    <p> {{ badAttempt }} </p>
+    <input id="home_formulaire_submit" type="submit" value="Envoyer">
+</form>
+
+<h1>Pokedex</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Image</th>
+        <th>Type 1</th>
+        <th>Type 2 (facultatif)</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for pokemon in pokemons %}
+        <tr>
+            <td>{{ pokemon.pkmn_name }}</td>
+            <td><img class="pokemon_picture" src="{{ pokemon.pkmn_picture_url }}" alt="{{ pokemon.pkmn_name }}"></td>
+            <td>{{ pokemon.pkmn_type1 }}</td>
+            {% if pokemon.pkmn_type2 %}
+                <td>{{ pokemon.pkmn_type2 }}</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
 </body>
 </html>

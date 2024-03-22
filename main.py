@@ -59,7 +59,6 @@ def login_post():
 
 # TODO: A faire
 #  - Rendre la page plus attrayante,
-#  - Possibilité de changer le mot de passe
 #  - Affichage d'un message type "Vous �tes le {id}ème utilisateur crée"
 #  - Ajout de fonctionnalité qui utilise la base de donnée (Pokedex ?)
 #  - Bouton déconnexion
@@ -68,10 +67,14 @@ def dashboard(username):
     """
     Retourne le dashboard de l'utilisateur (après connexion)
     """
+    css_file = url_for('static', filename='style.css')
+    pokemons = get_pokemon(username)
     return render_template(
         "dashboard.html",
         title="Dashboard",
-        username=username
+        username=username,
+        pokemons=pokemons,
+        css=css_file
     )
 
 
@@ -138,6 +141,22 @@ def db_test():
             print('No such user')
         else:
             print("toto", 'has the id', user['username'])
+
+
+############
+# Pokedex #
+###########
+
+def get_pokemon(username):
+    """
+    Affiche la liste de pokemon d'un utilisateur dans la base de donnée
+    """
+    with app.app_context():
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("SELECT * FROM pokedex WHERE username = ?", (username,))
+        pokemons = cursor.fetchall()
+        return pokemons
 
 
 ######################

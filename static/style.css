@@ -36,3 +36,16 @@
     width: 125px;
     height: 30px;
 }
+
+.hide {
+    display: none;
+}
+
+.pokemon_picture {
+    width: 100px;
+    height: 100px;
+}
+
+table {
+    border-spacing: 20px;
+}
