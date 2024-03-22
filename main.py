@@ -159,9 +159,33 @@ def get_pokemon(username):
         return pokemons
 
 
+@app.route("/dashboard/<username>", methods=["POST"])
+def add_pokemon(username):
+    """
+    Ajoute un pokemon à l'utilisateur en fonction des informations entrée dans le formulaire
+    """
+    pokemon_name = request.form["pkmn_name"]
+    pokemon_picture_url = request.form["pkmn_picture_url"]
+    pokemon_type1 = request.form["pkmn_type1"]
+    pokemon_type2 = request.form.get("pkmn_type2", None)
+
+    if not pokemon_type1 or not pokemon_name or not pokemon_picture_url:
+        message = "Tous les champs sont obligatoire (sauf type 2)"
+        return redirect(url_for('dashboard', username=username, badAttempt=message))
+
+    with app.app_context():
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("INSERT INTO pokedex (username, pkmn_name, pkmn_picture_url, pkmn_type1, pkmn_type2) VALUES (?, ?, ?, ?, ?)",
+                       (username, pokemon_name, pokemon_picture_url, pokemon_type1, pokemon_type2))
+        db.commit()
+
+    return redirect(url_for('dashboard', username=username))
+
 ######################
 # Lancement de l'app #
 ######################
+
 
 # Lancement de l'app avec la commande → python main.py
 if __name__ == "__main__":

@@ -29,9 +29,12 @@
 <p>Bonjour {{username}} !</p>
 <form id="pokedex_form">
     <p>Que veux-tu faire ?</p>
+    <p>{{ badAttempt }}</p>
     <input type="submit" value="Ajouter un pokemon" id="add_pkmn">
+
 </form>
-<form id="add_pkmn_form" class="hide">
+<form id="add_pkmn_form" method="post" class="hide">
+    <input type="hidden" name="username" id="username" value="{{ username }}">
     <div>
         <label for="pkmn_name">Nom du pokemon : </label>
         <input type="text" name="pkmn_name" id="pkmn_name" placeholder="Dracaufeu">
@@ -48,14 +51,15 @@
         <label for="pkmn_type2">type 2 du pokemon : </label>
         <input type="text" name="pkmn_type2" id="pkmn_type2" placeholder="vol">
     </div>
-    <p> {{ badAttempt }} </p>
     <input id="home_formulaire_submit" type="submit" value="Envoyer">
 </form>
+
 
 <h1>Pokedex</h1>
 <table>
     <thead>
     <tr>
+        <th>Id</th>
         <th>Nom</th>
         <th>Image</th>
         <th>Type 1</th>
@@ -65,6 +69,7 @@
     <tbody>
     {% for pokemon in pokemons %}
         <tr>
+            <td>{{ pokemon.id }}</td>
             <td>{{ pokemon.pkmn_name }}</td>
             <td><img class="pokemon_picture" src="{{ pokemon.pkmn_picture_url }}" alt="{{ pokemon.pkmn_name }}"></td>
             <td>{{ pokemon.pkmn_type1 }}</td>

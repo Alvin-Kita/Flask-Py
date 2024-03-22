@@ -11,7 +11,7 @@ INSERT INTO users (username, password) VALUES ('tata', 'toto');
 
 CREATE TABLE pokedex (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE NOT NULL,
+    username TEXT,
     pkmn_name TEXT NOT NULL,
     pkmn_picture_url TEXT,
     pkmn_type1 TEXT NOT NULL,
